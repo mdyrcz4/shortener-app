@@ -11,7 +11,7 @@ export default function LinksList(props) {
     };
 
     return (
-        <ListGroup style={{ marginTop: '40px', marginBottom: '40px', height: '200px' }} className="overflow-auto">
+        <ListGroup style={{ marginTop: '40px', marginBottom: '40px', height: '500px' }} className="overflow-auto">
             {
                 props.items.map(item =>
                     <ListGroup.Item key={item.url}>
