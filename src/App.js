@@ -8,7 +8,6 @@ function App() {
   const [shortenedUrls, setShortenedUrls] = useState([]);
 
   const addNewUrl = (url) => {
-    // const item = new ListItem({ url: `${process.env.REACT_APP_API_URL}/${url.data}`, original: url.original });
     const item = { url: `${process.env.REACT_APP_API_URL}/${url.data}`, original: url.original };
     setShortenedUrls([item, ...shortenedUrls]);
   }
