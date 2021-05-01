@@ -12,6 +12,11 @@ function App() {
     setShortenedUrls([item, ...shortenedUrls]);
   }
 
+  const deleteUrl = (url) => {
+    const newList = shortenedUrls.filter(x => x.url !== url);
+    setShortenedUrls(newList);
+  }
+
   return (
     <>
       <Container>
@@ -29,6 +34,7 @@ function App() {
           <Col md={10}>
             <LinksList
               items={shortenedUrls}
+              handleDeleteUrl={deleteUrl}
             />
           </Col>
         </Row>

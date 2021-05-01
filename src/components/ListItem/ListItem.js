@@ -5,12 +5,16 @@ export default function ListItem(props) {
     const handleCopy = () => {
         navigator.clipboard.writeText(props.url);
         props.handleCopied(props.url);
-    }
+    };
+
+    const handleDelete = () => {
+        props.handleDelete(props.url);
+    };
 
     return (
         <Container>
             <Row className="justify-content-between align-middle">
-                <Col md={8} xs={3}>
+                <Col xl={10} sm={8} xs={8}>
                     <Row>
                         <Col>
                             <span>{props.url}</span>
@@ -22,8 +26,11 @@ export default function ListItem(props) {
                         </Col>
                     </Row>
                 </Col>
-                <Col md={2} sm={2}>
+                <Col xl={1} sm={2} xs={2}>
                     <Button variant="outline-primary" onClick={() => handleCopy()}>{props.copied ? 'Copied' : 'Copy'}</Button>
+                </Col>
+                <Col xl={1} sm={2} xs={2}>
+                    <Button variant="outline-danger" onClick={() => handleDelete()}>Delete</Button>
                 </Col>
             </Row>
         </Container>

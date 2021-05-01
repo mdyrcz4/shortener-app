@@ -9,7 +9,7 @@ export default function ShortenerForm(props) {
             url: ''
         },
         validationSchema: Yup.object({
-            url: Yup.string().url('Invalid url').required('Required')
+            url: Yup.string().url('Invalid url. Valid url example: https://www.google.com').required('Required')
         }),
         onSubmit: async values => {
             const requestOptions = {
