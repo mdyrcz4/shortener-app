@@ -1,47 +1,45 @@
-import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { Button, Form, Col } from 'react-bootstrap';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function ShortenerForm(props) {
 
-    const formik = useFormik({
-        initialValues: {
-            url: ''
-        },
-        validationSchema: Yup.object({
-            url: Yup.string().url('Invalid url. Valid url example: https://www.google.com').required('Required')
-        }),
-        onSubmit: async values => {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: values.url })
-            };
-
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/shorten`, requestOptions);
-            const data = await response.json();
-            data.original = formik.values.url;
-            props.handleShortenUrl(data);
-            formik.values.url = '';
-        }
+    const schema = Yup.object().shape({
+        url: Yup.string().url('Invalid url. Valid url example: https://www.google.com').required('Required')
     });
+
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    const onSubmit = async values => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: values.url })
+        };
+
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/shorten`, requestOptions);
+        const data = await response.json();
+        data.original = values.url;
+        props.handleShortenUrl(data);
+        setValue("url", "");
+    };
 
     return (
         <>
-            <Form onSubmit={formik.handleSubmit}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Row className="justify-content-center">
                     <Col md={6}>
                         <Form.Control
                             type="text"
-                            id="url"
-                            name="url"
                             placeholder="Your url goes here"
-                            value={formik.values.url}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            isInvalid={formik.touched.url && formik.errors.url} />
+                            isInvalid={errors.url}
+                            defaultValue=""
+                            {...register("url")} />
                         <Form.Control.Feedback type="invalid">
-                            {formik.errors.url}
+                            {errors.url?.message}
                         </Form.Control.Feedback>
                     </Col>
                     <Col md={1}>
