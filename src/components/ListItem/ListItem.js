@@ -1,4 +1,4 @@
-import { Button, Row, Col, Container } from 'react-bootstrap';
+import { Button, Row, Col, Container, ButtonGroup } from 'react-bootstrap';
 
 export default function ListItem(props) {
 
@@ -14,7 +14,7 @@ export default function ListItem(props) {
     return (
         <Container>
             <Row className="justify-content-between align-middle">
-                <Col xl={10} sm={8} xs={8}>
+                <Col xl={10} md={9} sm={8} xs={8}>
                     <Row>
                         <Col>
                             <span>{props.url}</span>
@@ -26,11 +26,11 @@ export default function ListItem(props) {
                         </Col>
                     </Row>
                 </Col>
-                <Col xl={1} sm={2} xs={2}>
-                    <Button variant="outline-primary" onClick={() => handleCopy()}>{props.copied ? 'Copied' : 'Copy'}</Button>
-                </Col>
-                <Col xl={1} sm={2} xs={2}>
-                    <Button variant="outline-danger" onClick={() => handleDelete()}>Delete</Button>
+                <Col xl={2}>
+                    <ButtonGroup>
+                        <Button variant="outline-primary" onClick={() => handleCopy()}>{props.copied ? 'Copied' : 'Copy'}</Button>
+                        <Button variant="outline-danger" onClick={() => handleDelete()}>Delete</Button>
+                    </ButtonGroup>
                 </Col>
             </Row>
         </Container>
