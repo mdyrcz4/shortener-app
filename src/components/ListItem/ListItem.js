@@ -14,7 +14,7 @@ export default function ListItem(props) {
     return (
         <Container>
             <Row className="justify-content-between align-middle">
-                <Col xl={10} md={9} sm={8} xs={8}>
+                <Col xl={10} md={10} sm={8} xs={8}>
                     <Row>
                         <Col>
                             <span>{props.url}</span>
